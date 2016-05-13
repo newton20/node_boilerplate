@@ -1,9 +1,9 @@
 {
-  "name": "ImageManager",
+  "name": "BoilerPlate",
   "version": "1.0.0",
-  "description": "A test project to play with react",
+  "description": "A boiler plate project for NodeJs",
   "main": "server.js",
-  "author": "jeff zhang",
+  "author": "Cimpress",
   "scripts": {
     "watch": "watchify -d public/scripts/app.js -o public/scripts/bundle.js -v",
     "build": "browserify public/scripts/app.js -o public/scripts/bundle.js",
@@ -19,7 +19,7 @@
     "grunt-cli": "0.1.13",
     "react": "~0.14.4",
     "react-dom": "~0.14.4",
-    "babel-loader": "~6.2.0", 
+    "babel-loader": "~6.2.0",
     "babel-core": "~6.3.26",
     "babel-preset-es2015": "~6.3.13",
     "babel-preset-react": "~6.3.13",
