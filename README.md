@@ -9,3 +9,4 @@ System Requirements:
 - See config\server.js for assumed server configurations
 - Run the server using "nodemon" from the installed npm package. OR run "npm start"
 -- E.g. "./node_modules/nodemon/bin/nodemon.js"
+- View Swagger UI at /swagger

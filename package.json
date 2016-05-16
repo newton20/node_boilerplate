@@ -27,7 +27,9 @@
     "nodemon": "~1.8.1",
     "uglify-js": "~2.4.15",
     "watchify": "~3.6.1",
-    "babelify": "~7.2.0"
+    "babelify": "~7.2.0",
+    "swagger-node-express": "~2.0",
+    "minimist": "*"
   },
   "browserify": {
     "transform": [["babelify", { "presets": ["es2015", "react"] }]]

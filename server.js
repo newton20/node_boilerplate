@@ -7,6 +7,8 @@ var bodyParser     = require('body-parser');
 var methodOverride = require('method-override');
 var mongoose       = require('mongoose');
 var fs             = require('fs');
+var argv           = require('minimist')(process.argv.slice(2));
+var swagger        = require('swagger-node-express');
 
 // configuration ===========================================
 
@@ -35,16 +37,37 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('X-HTTP-Method-Override'));
 
 app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
 });
+
+// Set up subpath
+var subpath = express();
+app.use('/v1', subpath);
 
 // set the static files location
 app.use(express.static(__dirname + '/public'));
 
 // expose the bower components for easy references
 app.use('/bower_components',  express.static(__dirname + '/bower_components'));
+
+// set up swagger ui
+// reference: https://github.com/shawngong/Swagger-Node-Express-For-Existing-APIs
+app.use('/swagger', express.static('./swagger/dist'));
+swagger.setAppHandler(subpath);
+swagger.configureSwaggerPaths('', 'api-docs', '');
+swagger.configure('http://localhost:6999', '1.0.0');
+
+swagger.setApiInfo({
+  title: 'NodeJs API boiler plate',
+  description: 'RESTful API boiler plate in NodeJs',
+  contact: 'xlei@cimpress.com',
+});
+
+app.get('/', function (req, res) {
+  res.sendFile(__dirname + '/swagger/dist/index.html');
+});
 
 // models ==================================================
 // var modelsPath = __dirname + '/app/models';
@@ -65,7 +88,7 @@ routesFiles.forEach(function (file) {
 app.listen(port);
 
 // shoutout to the user
-console.log('TestReactCommentBox is listening on port ' + port);
+console.log('Boiler plate is listening on port ' + port);
 
 // expose app
 exports = module.exports = app;
